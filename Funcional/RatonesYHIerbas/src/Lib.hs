@@ -28,7 +28,7 @@ hierbaVerde :: String -> Hierba
 hierbaVerde sufijo unRaton = enfermedadesTerminaEn sufijo unRaton
 
 enfermedadesTerminaEn :: String -> Raton -> Raton
-enfermedadesTerminaEn sufijo unRaton = unRaton { enfermedades = filter (isSuffixOf sufijo) . enfermedades $ unRaton}
+enfermedadesTerminaEn sufijo unRaton = unRaton {enfermedades = filter (isSuffixOf sufijo) . enfermedades $ unRaton}
 
 alcachofa :: Hierba
 alcachofa = reducirPesoRaizCuadrada

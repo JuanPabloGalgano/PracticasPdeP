@@ -5,10 +5,21 @@ import Data.List
 -- Punto 1 --
 -------------
 type Universo = [Personaje]
-data Personaje = Personaje { nombre :: String, edad  :: Int, energia :: Float, habilidades :: [Habilidad], planeta :: String} deriving (Show)
-data Guantelete = Guantelete {material :: String, gemas ::[Gema]}
-type Habilidad = String 
 
+data Personaje = Personaje { 
+    nombre :: String, 
+    edad  :: Int, 
+    energia :: Float, 
+    habilidades :: [Habilidad], 
+    planeta :: String
+} 
+
+data Guantelete = Guantelete {
+    material :: String, 
+    gemas ::[Gema]
+}
+
+type Habilidad = String 
 
 -------------
 --Punto 1.5--
