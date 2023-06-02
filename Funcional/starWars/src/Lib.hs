@@ -84,8 +84,11 @@ fueraDeCombate = (==0). durabilidad
 -- Punto 5 --
 type Estrategia = Nave -> Bool
 
-atacarFlotaEnemiga :: Flota -> Estrategia -> Flota
-atacarFlotaEnemiga flotaEnemiga estrategia = filter estrategia flotaEnemiga
+misionSopresa :: Nave -> Flota -> Estrategia -> Flota
+misionSopresa unaNave flotaEnemiga estrategia = map (atacarNave unaNave) $ filtrarFlotaEnemiga flotaEnemiga estrategia
+
+filtrarFlotaEnemiga :: Flota -> Estrategia -> Flota
+filtrarFlotaEnemiga flotaEnemiga estrategia = filter estrategia flotaEnemiga
 
 navesDebiles :: Estrategia 
 navesDebiles = (<200) . escudo
@@ -100,9 +103,20 @@ menosDe15Letras :: Estrategia
 menosDe15Letras = (<15) . length . nombre
 
 -- Punto 6 --
+type Mision a = Nave -> Flota -> Estrategia -> Estrategia -> a
 
---realizarMision :: Nave -> Flota -> Estrategia -> Estrategia -> Estrategia
---realizarMision unaNave flotaEnemiga estrategia1 estrategia2 = minimizaDurabilidad 
+usarMejorEstrategia :: Mision Flota
+usarMejorEstrategia unaNave flotaEnemiga estrategia1 = 
+    misionSopresa unaNave flotaEnemiga . mejorEstrategia unaNave flotaEnemiga estrategia1
+
+mejorEstrategia :: Mision Estrategia
+mejorEstrategia unaNave flotaEnemiga estrategia1 estrategia2 
+    |esMejor unaNave flotaEnemiga estrategia1 estrategia2 = estrategia1
+    |otherwise                                            = estrategia2
+
+esMejor :: Mision Bool
+esMejor unaNave flotaEnemiga estrategia1 estrategia2 =
+    (durabilidadTotal . misionSopresa unaNave flotaEnemiga $ estrategia1) < (durabilidadTotal . misionSopresa unaNave flotaEnemiga $ estrategia2)
 
 -- Punto 7 --
 
