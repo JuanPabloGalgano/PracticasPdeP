@@ -83,7 +83,6 @@ sumarHorrocruxes :: Mago -> Mago
 sumarHorrocruxes unMago = unMago {horrorcruxes = (+1) . horrorcruxes $ unMago}
 
 -- Punto B --
-
 mejorHechizoV1 :: Postre -> Mago -> Hechizo
 mejorHechizoV1 postre mago = elMejor postre (hechizos mago)
 
@@ -107,5 +106,6 @@ magoInfinitosHechizos hechizo unMago = unMago {hechizos = (infinitosHechizos hec
 infinitosHechizos :: Hechizo -> [Hechizo]
 infinitosHechizos hechizo = (hechizo : infinitosHechizos hechizo)
 
--- No se puede encotnra el mejor hechizo ya que la lista seria infinita y siempre esta evaluando un siguiente hechizo 
+-- No se puede encontrar el mejor hechizo ya que la lista seria infinita y siempre esta evaluando un siguiente hechizo 
+
 

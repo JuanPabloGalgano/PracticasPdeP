@@ -1,2 +1,3 @@
-module Lib
+import Data.List
+
 
