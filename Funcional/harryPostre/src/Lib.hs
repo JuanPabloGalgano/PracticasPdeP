@@ -56,7 +56,7 @@ aplicarHechizo = map
 
 -- Punto D   --
 promedioPesoListos :: Hechizo -> [Postre] -> Float
-promedioPesoListos hechizo postres = (sum . map peso . filtrarListos hechizo $ postres) / fromIntegral (length postres)
+promedioPesoListos hechizo postres = (sum . map peso . filtrarListos hechizo $ postres) /  (length postres)
 
 filtrarListos :: Hechizo -> [Postre] -> [Postre]
 filtrarListos hechizo postres= filter estaListo . aplicarHechizo hechizo $ postres

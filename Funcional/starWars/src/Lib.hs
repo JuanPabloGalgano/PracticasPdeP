@@ -51,9 +51,6 @@ camuflaje nuevoCamuflaje = cambiarNombre (nombre nuevoCamuflaje) . aumentarAtaqu
 cambiarNombre :: String -> Nave -> Nave
 cambiarNombre nuevoNombre unaNave = unaNave {nombre = nuevoNombre}
 
---modificarNave :: Int -> (Nave -> Int) -> Nave -> Nave
---modificarNave cantidad funcion unaNave = (+cantidad) . funcion $ unaNave
-
 -- Punto 2 --
 type Flota = [Nave]
 
@@ -69,9 +66,7 @@ atacarNave :: Nave -> Nave -> Nave
 atacarNave atacante defensor = aumentarDurabilidad (-(diferenciaAtaqueEscudo (activarPoder atacante) (activarPoder defensor))) defensor
 
 diferenciaAtaqueEscudo :: Nave -> Nave -> Int
-diferenciaAtaqueEscudo (Nave _ _ _ ataque _) (Nave _ _ escudo _ _) 
-    | ataque < escudo = 0
-    | otherwise = ataque - escudo
+diferenciaAtaqueEscudo (Nave _ _ _ ataque _) (Nave _ _ escudo _ _) = max 0 (ataque - escudo)
 
 activarPoder :: Nave -> Nave
 activarPoder unaNave = (poder unaNave) unaNave

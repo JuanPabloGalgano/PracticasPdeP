@@ -61,8 +61,52 @@ juezPresupuesto2 = (<5) . presupuesto
 
 -- Punto 3 --
 
-filtrarConsitucionales :: [Ley] -> CorteSuprema -> [Ley]
-filtrarConsitucionales leyes =
+filtrarConsitucionales :: CorteSuprema -> [Ley] -> [Ley]
+filtrarConsitucionales corte = filter (votoCorteSuprema juces)
 
+votoCorteSuprema :: CorteSuprema -> Ley  -> Bool
+votoCorteSuprema jueces ley  = cuantosVotosPositivos ley jueces >= mayoria jueces
 
+cuantosVotosPositivos ::  Ley -> CorteSuprema -> Number
+cuantosVotosPositivos ley = length.filter ($ ley) 
 
+ahoraSiSonConstitucionales :: [Ley] -> CorteSuprema -> CorteSuprema -> [Ley]
+ahoraSiSonConstitucionales leyes corteSuprema nuevosJueces = 
+    filter (antesNoPeroAhoraSi corteSuprema nuevosJueces) leyes
+
+antesNoPeroAhoraSi :: CorteSuprema -> CorteSuprema -> Ley -> Bool
+antesNoPeroAhoraSi corteSuprema nuevosJueces ley = 
+     not (votoCorteSuprema corteSuprema ley) && votoCorteSuprema (corteSuprema ++ nuevosJueces) ley
+
+ahoraSiSonConstitucionales' :: [Ley] -> CorteSuprema -> CorteSuprema -> [Ley]
+ahoraSiSonConstitucionales' leyes corteSuprema nuevosJueces = 
+  leyesConstitucionales (corteSuprema ++ nuevosJueces) (leyesInconstitucionales corteSuprema leyes) 
+
+leyesInconstitucionales :: CorteSuprema -> [Ley] -> [Ley]
+leyesInconstitucionales corteSuprema leyes = leyesPorConstitucionalidad not corteSuprema leyes
+
+leyesConstitucionales :: CorteSuprema -> [Ley] -> [Ley]
+leyesConstitucionales corteSuprema leyes = leyesPorConstitucionalidad id corteSuprema leyes
+
+leyesPorConstitucionalidad :: (a->a) -> CorteSuprema -> [Ley] -> [Ley]
+leyesPorConstitucionalidad funcion corteSuprema leyes = filter ((funcion.(votoCorteSuprema corteSuprema))) leyes
+
+-- Cuestion de principios --
+-- Punto 1 --
+borocotizar :: CorteSuprema -> CorteSuprema
+borocotizar = map borocotizarJuez
+
+borocotizarJuez :: Juez -> Juez
+borocotizarJuez = not
+
+-- Punto 2 --
+juezCoincideCon :: Juez -> String -> [Ley] -> Bool
+juezCoincideCon juez sector leyes = all (elSectorApoyaLaLey sector) (leyesQueVota juez leyes)
+
+elSectorApoyaLaLey :: String -> Ley -> Bool
+elSectorApoyaLaLey partido ley = elem partido (apoyadoPor ley)
+
+leyesQueVota :: Juez -> [Ley] -> [Ley]
+leyesQueVota = filter
+leyesQueVota' juez = filter (\ley -> juez ley)
+leyesQueVota'' juez = filter juez
