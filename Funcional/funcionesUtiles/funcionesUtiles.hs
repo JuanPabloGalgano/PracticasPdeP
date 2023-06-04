@@ -69,4 +69,13 @@ activarPoder unaNave = (poder unaNave) unaNave
 -- Para ver si todos los elementos de una lista son iguales
 iguales :: [Palabra] -> Bool
 iguales [] = False 
-iguales [palabra:palabras] = all (==palabra) palabras
+iguales [palabra:palabras] = all (==palabra) palabrasç
+
+-- Quitar una vez, tipo delete
+quitarUnaVez:: Eq a => a -> [a] -> [a]
+quitarUnaVez _ [] = []
+quitarUnaVez material (m:ms)  
+ | material == m = ms
+ | otherwise = m:quitarUnaVez material ms 
+
+ 
