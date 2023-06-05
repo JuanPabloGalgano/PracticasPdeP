@@ -1,3 +1,5 @@
+https://www.cs.us.es/~jalonso/cursos/i1m/doc/Funciones_basicas.html
+
 -- Como hacer un Fold, el hacerActividad lo puedo reemplazar por el $, o poner foldl y poner (flip ($))
 hacerExpedicion :: Expedicion -> Investigador -> Investigador
 hacerExpedicion expedicion unInvestigador = foldr hacerActividad unInvestigador expedicion
