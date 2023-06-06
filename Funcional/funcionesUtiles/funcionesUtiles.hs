@@ -71,7 +71,7 @@ activarPoder unaNave = (poder unaNave) unaNave
 -- Para ver si todos los elementos de una lista son iguales
 iguales :: [Palabra] -> Bool
 iguales [] = False 
-iguales [palabra:palabras] = all (==palabra) palabrasç
+iguales [palabra:palabras] = all (==palabra) palabras
 
 -- Quitar una vez, tipo delete
 quitarUnaVez:: Eq a => a -> [a] -> [a]
@@ -79,5 +79,21 @@ quitarUnaVez _ [] = []
 quitarUnaVez material (m:ms)  
  | material == m = ms
  | otherwise = m:quitarUnaVez material ms 
+
+-- Un elemento de una lista, con otro de otra dependiendo una condicion
+zipWithIf :: (a -> b -> b) -> (b -> Bool) -> [a] -> [b] -> [b]
+zipWithIf _ _ [] _ = []
+zipWithIf _ _ _ [] = []
+zipWithIf f cond (x:xs) (y:ys)
+    | cond y     = f x y : zipWithIf f cond xs ys
+    | otherwise  = y : zipWithIf f cond xs ys
+
+-- Maximo de una lista dsp de una funcion
+maximumBy :: [a] -> ( a -> Ord b ) -> b
+maximumBy lista funcion = max . map funcion $ lista
+
+-- Unir el 1er elemento de una lista con el 1ero de la otra, hasta q se termine una de las 2
+formarEquipoRanger :: [Color] -> [Persona] -> [PowerRanger]
+formarEquipoRanger colores personas =  zipWith convertirEnPoweRanger colores (filtrarPersonasBuenas personas)
 
  

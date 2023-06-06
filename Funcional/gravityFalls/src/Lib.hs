@@ -64,7 +64,7 @@ zipWithIf f cond (x:xs) (y:ys)
 
 -- Punto 2 --
 abecedarioDesde :: Char -> [Char]
-abecedarioDesde c = [c..'z'] ++ cycle ['a'..'z']
+abecedarioDesde c = reverse . delete c . reverse $ [c..'z'] ++ ['a'.. c]
 
 desencriptarLetra :: Char -> Char -> Char
 desencriptarLetra clave letra = ['a'..'z'] !! (mod (indexLetra - indexClave) 26)
