@@ -89,4 +89,13 @@ carrera1 = simularCarrera [Auto "blanco" 120 0,Auto "Rojo" 120 0,Auto "Negro" 12
                           usaPowerUp (jetPack 3) "azul",
                           correnTodos 30]
 
+-- Punto 5 --
 
+-- Si se podria agregar uun misil teledirigido, dem la siguiente forma
+-- misilTeledirigido :: String -> PowerUp
+-- misilTeledirigido color = afectarALosQueCumplen (\auto -> color auto == colorAuto) efectoDelMisil carrera
+
+-- No se podrian hacer ya que se necesita que la lsita este completa para saber si ninguno de los autos que
+-- componen la carrera esta cerca del auto ingresado, y con respecto al punto c, para obtener el length de una lista,
+-- se necesita que la lista este terminada, y la funcion filter masDistancia iteraria infinitamente el siguiente 
+-- auto hasta que termine
