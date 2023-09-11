@@ -1,0 +1,36 @@
+import Personas.*
+import EnfermedadesAutoinmunes.*
+import EnfermedadesInfecciosas.*
+
+
+describe "Personas" {
+	var logan
+	var frank
+	var malaria1
+	var malaria2
+	var lupus
+	var otitis
+	
+	method initialize(){
+		logan = new Persona(cantidadDeCelulas = 3000000, temperatura = 36, enfermedades = [malaria1, otitis, lupus])
+		frank = new Persona(cantidadDeCelulas = 3500000, temperatura = 36)
+		
+		malaria1 = new EnfermedadInfecciosa(celulasQueAmenaza = 500)
+		otitis   = new EnfermedadInfecciosa(celulasQueAmenaza = 100)
+		lupus	 = new EnfermedadAutoinmune(celulasQueAmenaza = 1000)
+		malaria2 = new EnfermedadInfecciosa(celulasQueAmenaza = 800) 
+	}
+	test "Punto 1 - Frank contrae enfermedad"{
+		frank.contraerEnfermedad(malaria2)
+		assert.equals([malaria2], frank.enfermedades())
+	}
+	
+	test "Punto 2 - la malaria2 se reproduce"{
+		malaria1.reproducirse()
+		assert.that(malaria1.seReprodujo())
+	}
+	
+	test "Punto 3 - logan vive un dia"{
+		
+	}
+}
